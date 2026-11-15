@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendar_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingStart="14dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="10dp">
+
+    <!-- ===== Левая колонка (40%) ===== -->
+    <LinearLayout
+        android:id="@+id/left_column"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="40"
+        android:orientation="vertical">
+
+        <!-- Число + день недели / месяц -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/day_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="15"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/day_of_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="воскресенье"
+                    android:textColor="@color/widget_text_primary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/day_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Ноябрь"
+                    android:textColor="@color/widget_text_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Погода -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_weather_partly_day" />
+
+            <TextView
+                android:id="@+id/weather_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="3°"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Ближайшие события на сегодня (прижаты к низу) -->
+        <LinearLayout
+            android:id="@+id/events_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/event_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="14:30 Встреча с командой"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/event_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="18:00 Тренировка"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/events_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif"
+                android:includeFontPadding="false"
+                android:maxLines="2"
+                android:text="@string/no_events"
+                android:textColor="@color/widget_text_secondary"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ===== Вертикальный разделитель (View не разрешён в RemoteViews, поэтому FrameLayout) ===== -->
+    <FrameLayout
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/widget_divider" />
+
+    <!-- ===== Правая колонка (60%) ===== -->
+    <LinearLayout
+        android:id="@+id/right_column"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="60"
+        android:orientation="vertical">
+
+        <!-- Название месяца + кнопки < > -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/month_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="Ноябрь"
+                android:textColor="@color/widget_text_primary"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_prev"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/ripple_nav"
+                android:contentDescription="@string/previous_month"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_chevron_left" />
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/ripple_nav"
+                android:contentDescription="@string/next_month"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_chevron_right" />
+        </LinearLayout>
+
+        <!-- Сетка месяца: 6 строк по 7 TextView, без заголовка дней недели -->
+        <LinearLayout
+            android:id="@+id/calendar_grid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_0"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="26"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_1"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="27"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_2"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="28"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_3"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="29"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_4"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="30"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_5"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="31"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_6"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_7"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="2" />
+                <TextView
+                    android:id="@+id/cell_8"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="3" />
+                <TextView
+                    android:id="@+id/cell_9"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="4" />
+                <TextView
+                    android:id="@+id/cell_10"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="5" />
+                <TextView
+                    android:id="@+id/cell_11"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="6" />
+                <TextView
+                    android:id="@+id/cell_12"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="7" />
+                <TextView
+                    android:id="@+id/cell_13"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="8" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_14"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="9" />
+                <TextView
+                    android:id="@+id/cell_15"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="10" />
+                <TextView
+                    android:id="@+id/cell_16"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="11" />
+                <TextView
+                    android:id="@+id/cell_17"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="12" />
+                <TextView
+                    android:id="@+id/cell_18"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="13" />
+                <TextView
+                    android:id="@+id/cell_19"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="14" />
+                <TextView
+                    android:id="@+id/cell_20"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="15"
+                    android:background="@drawable/bg_today" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_21"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="16" />
+                <TextView
+                    android:id="@+id/cell_22"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="17" />
+                <TextView
+                    android:id="@+id/cell_23"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="18" />
+                <TextView
+                    android:id="@+id/cell_24"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="19" />
+                <TextView
+                    android:id="@+id/cell_25"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="20" />
+                <TextView
+                    android:id="@+id/cell_26"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="21" />
+                <TextView
+                    android:id="@+id/cell_27"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="22" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_28"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="23" />
+                <TextView
+                    android:id="@+id/cell_29"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="24" />
+                <TextView
+                    android:id="@+id/cell_30"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="25" />
+                <TextView
+                    android:id="@+id/cell_31"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="26" />
+                <TextView
+                    android:id="@+id/cell_32"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="27" />
+                <TextView
+                    android:id="@+id/cell_33"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="28" />
+                <TextView
+                    android:id="@+id/cell_34"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="29" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/cell_35"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="30" />
+                <TextView
+                    android:id="@+id/cell_36"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_37"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="2"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_38"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="3"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_39"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="4"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_40"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="5"
+                    android:textColor="@color/widget_other_month" />
+                <TextView
+                    android:id="@+id/cell_41"
+                    style="@style/CalendarCell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="6"
+                    android:textColor="@color/widget_other_month" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

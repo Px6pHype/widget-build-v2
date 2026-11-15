@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Заглушка обложки: тёмный скруглённый квадрат + белая нота по центру.
+     Оба слоя имеют явный размер 48dp, поэтому scaleType="centerCrop"
+     у ImageView не масштабирует их. Нота: 24dp нота в слое 48dp
+     с inset 12dp с каждой стороны. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="48dp"
+        android:height="48dp"
+        android:drawable="@drawable/bg_music_cover" />
+    <item
+        android:width="48dp"
+        android:height="48dp">
+        <inset
+            android:drawable="@drawable/ic_music_note"
+            android:insetBottom="12dp"
+            android:insetLeft="12dp"
+            android:insetRight="12dp"
+            android:insetTop="12dp" />
+    </item>
+</layer-list>

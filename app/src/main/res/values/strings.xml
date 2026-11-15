@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Glass Widgets</string>
+
+    <!-- Виджеты -->
+    <string name="widget_clock_label">Часы и дата</string>
+    <string name="widget_calendar_label">Календарь и погода</string>
+    <string name="widget_music_label">Музыка</string>
+    <string name="widget_clock_description">Время и краткая дата</string>
+    <string name="widget_calendar_description">Месяц, погода и ближайшие события</string>
+    <string name="widget_music_description">Трек, исполнитель и прогресс воспроизведения</string>
+
+    <!-- Виджет 3: музыкальный плеер -->
+    <string name="music_not_playing">Не воспроизводится</string>
+    <string name="music_turn_on">Включите музыку</string>
+    <string name="btn_prev">Предыдущий трек</string>
+    <string name="btn_play_pause">Пауза или воспроизведение</string>
+    <string name="btn_next">Следующий трек</string>
+    <string name="previous_month">Предыдущий месяц</string>
+    <string name="next_month">Следующий месяц</string>
+    <string name="no_events">Ближайших событий нет</string>
+    <string name="no_calendar_access">Нужен доступ к календарю</string>
+    <string name="event_no_title">Без названия</string>
+
+    <!-- Главный экран -->
+    <string name="main_title">Glass Widgets</string>
+    <string name="main_subtitle">Три виджета для рабочего стола: часы с датой, календарь с погодой и событиями и музыкальный плеер.</string>
+    <string name="perm_calendar_title">Доступ к календарю</string>
+    <string name="perm_calendar_hint">Нужен, чтобы показывать ближайшие события на сегодня.</string>
+    <string name="perm_location_title">Доступ к геолокации</string>
+    <string name="perm_location_hint">Нужен для погоды: используется приблизительное местоположение.</string>
+    <string name="perm_media_title">Доступ к уведомлениям</string>
+    <string name="perm_media_hint">Нужен музыкальному виджету: он узнаёт треки и управляет плеером.</string>
+    <string name="status_granted">Выдан</string>
+    <string name="status_denied">Не выдан</string>
+    <string name="btn_grant">Выдать разрешения</string>
+    <string name="btn_grant_media">Выдать доступ к плееру</string>
+    <string name="btn_update_widgets">Обновить виджеты</string>
+    <string name="btn_updating">Обновляем…</string>
+    <string name="how_to_add">Как добавить: удерживайте пустое место на рабочем столе → «Виджеты» → «Glass Widgets».</string>
+    <string name="toast_all_granted">Все разрешения уже выданы</string>
+    <string name="toast_open_settings">Включите разрешения в настройках приложения</string>
+    <string name="toast_updated">Виджеты обновлены</string>
+    <string name="toast_updated_no_location">Виджеты обновлены. Для погоды выдайте доступ к геолокации</string>
+    <string name="toast_updated_no_fix">Виджеты обновлены, но координаты пока неизвестны. Откройте любое приложение с картой и повторите</string>
+    <string name="toast_updated_no_weather">Виджеты обновлены, но погоду загрузить не удалось</string>
+</resources>

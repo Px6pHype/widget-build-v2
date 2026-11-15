@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Тёмный скруглённый квадрат 12dp — подложка заглушки обложки. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/widget_music_cover" />
+    <corners android:radius="12dp" />
+</shape>
